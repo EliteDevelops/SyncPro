@@ -7,20 +7,24 @@
     <link rel="manifest" href="manifest.json">
     <title>SyncPro Web App</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #f0f0f0;
         }
+
         iframe {
             border: none;
-            width: 375px; /* Adjust as needed */
-            height: 667px; /* Adjust as needed */
+            width: 375px; /* Fixed width */
+            height: 667px; /* Fixed height */
         }
+
         #installBanner {
             position: fixed;
             bottom: 20px;
@@ -44,34 +48,34 @@
         let deferredPrompt;
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
-            // Stash the event so it can be triggered later.
             deferredPrompt = e;
-            // Update UI to notify the user they can install the PWA
-            const installBanner = document.getElementById('installBanner');
-            installBanner.style.display = 'block';
+            document.getElementById('installBanner').style.display = 'block';
+        });
 
-            installBanner.addEventListener('click', () => {
-                // Hide the install banner
-                installBanner.style.display = 'none';
-                // Show the install prompt
+        document.getElementById('installBanner').addEventListener('click', () => {
+            document.getElementById('installBanner').style.display = 'none';
+            if (deferredPrompt) {
                 deferredPrompt.prompt();
-                // Wait for the user to respond to the prompt
                 deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    } else {
-                        console.log('User dismissed the install prompt');
-                    }
                     deferredPrompt = null;
                 });
-            });
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            // Prevent resizing by resetting window size
+            window.resizeTo(375, 667);
         });
 
         window.addEventListener('appinstalled', (evt) => {
             console.log('App installed');
         });
+
+        // Optional: force fixed size on load
+        window.onload = () => {
+            window.resizeTo(375, 667);
+        };
     </script>
 </body>
 </html>
