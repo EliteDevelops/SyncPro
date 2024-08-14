@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
     <meta name="description" content="Embedded Link Web App">
     <link rel="manifest" href="manifest.json">
-    <title>SyncPro Web App</title>
+    <title>SyncPro</title>
     <style>
         body, html {
             margin: 0;
@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <iframe id="embeddedContent" src="https://tinyurl.com/syncpro" title="Embedded Link"></iframe>
+    <iframe src="https://tinyurl.com/syncpro" title="Embedded Link"></iframe>
 
     <script>
         let deferredPrompt;
@@ -40,6 +40,7 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            // Optionally, you could trigger the install prompt directly here if desired.
         });
 
         window.addEventListener('resize', () => {
@@ -64,31 +65,7 @@
         document.addEventListener('gestureend', function (e) {
             e.preventDefault();
         });
-
-        // Disable fullscreen mode
-        document.addEventListener('fullscreenchange', function () {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            }
-        });
-
-        document.addEventListener('webkitfullscreenchange', function () {
-            if (document.webkitFullscreenElement) {
-                document.webkitExitFullscreen();
-            }
-        });
-
-        document.addEventListener('mozfullscreenchange', function () {
-            if (document.mozFullScreenElement) {
-                document.mozCancelFullScreen();
-            }
-        });
-
-        document.addEventListener('msfullscreenchange', function () {
-            if (document.msFullscreenElement) {
-                document.msExitFullscreen();
-            }
-        });
     </script>
 </body>
 </html>
+
