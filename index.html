@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
     <meta name="description" content="Embedded Link Web App">
     <link rel="manifest" href="manifest.json">
     <title>SyncPro Web App</title>
@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             background-color: #f0f0f0;
+            touch-action: none; /* Disable double-tap zoom */
         }
 
         iframe {
@@ -79,3 +80,4 @@
     </script>
 </body>
 </html>
+
