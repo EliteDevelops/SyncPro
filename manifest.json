@@ -4,7 +4,7 @@
     "description": "A web app to access SyncPro via an embedded link.",
     "icons": [
         {
-            "src": "icon-192x192.png",
+            "src": "syncpro-icon.png",
             "sizes": "192x192",
             "type": "image/png"
         },
