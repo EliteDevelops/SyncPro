@@ -18,6 +18,10 @@
             align-items: center;
             background-color: #f0f0f0;
             touch-action: none; /* Disable double-tap zoom */
+            -ms-touch-action: none; /* Disable double-tap zoom for IE */
+            -webkit-user-select: none; /* Disable text selection */
+            -ms-user-select: none;
+            user-select: none;
         }
 
         iframe {
@@ -25,25 +29,10 @@
             width: 375px; /* Fixed width */
             height: 667px; /* Fixed height */
         }
-
-        #installBanner {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none; /* Initially hidden */
-        }
     </style>
 </head>
 <body>
     <iframe src="https://tinyurl.com/syncpro" title="Embedded Link"></iframe>
-
-    <div id="installBanner">Install SyncPro Web App</div>
 
     <script>
         let deferredPrompt;
@@ -51,17 +40,7 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            document.getElementById('installBanner').style.display = 'block';
-        });
-
-        document.getElementById('installBanner').addEventListener('click', () => {
-            document.getElementById('installBanner').style.display = 'none';
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    deferredPrompt = null;
-                });
-            }
+            // Optionally, you could trigger the install prompt directly here if desired.
         });
 
         window.addEventListener('resize', () => {
@@ -69,14 +48,23 @@
             window.resizeTo(375, 667);
         });
 
-        window.addEventListener('appinstalled', (evt) => {
-            console.log('App installed');
-        });
-
         // Optional: force fixed size on load
         window.onload = () => {
             window.resizeTo(375, 667);
         };
+
+        // Disable zooming via JavaScript
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gesturechange', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('gestureend', function (e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>
