@@ -28,12 +28,11 @@
             border: none;
             width: 375px; /* Fixed width */
             height: 667px; /* Fixed height */
-            sandbox="allow-same-origin allow-scripts allow-forms"; /* Add sandboxing */
         }
     </style>
 </head>
 <body>
-    <iframe id="embeddedContent" src="https://tinyurl.com/syncpro" title="Embedded Link" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+    <iframe id="embeddedContent" src="https://tinyurl.com/syncpro" title="Embedded Link"></iframe>
 
     <script>
         let deferredPrompt;
@@ -64,6 +63,31 @@
 
         document.addEventListener('gestureend', function (e) {
             e.preventDefault();
+        });
+
+        // Disable fullscreen mode
+        document.addEventListener('fullscreenchange', function () {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', function () {
+            if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            }
+        });
+
+        document.addEventListener('mozfullscreenchange', function () {
+            if (document.mozFullScreenElement) {
+                document.mozCancelFullScreen();
+            }
+        });
+
+        document.addEventListener('msfullscreenchange', function () {
+            if (document.msFullscreenElement) {
+                document.msExitFullscreen();
+            }
         });
     </script>
 </body>
