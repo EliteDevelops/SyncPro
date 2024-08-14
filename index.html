@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <iframe src="https://tinyurl.com/syncpro" title="Embedded Link"></iframe>
+    <iframe id="embeddedContent" src="https://tinyurl.com/syncpro" title="Embedded Link"></iframe>
 
     <script>
         let deferredPrompt;
@@ -65,7 +65,21 @@
         document.addEventListener('gestureend', function (e) {
             e.preventDefault();
         });
+
+        // Handle links opening in the same iframe
+        const iframe = document.getElementById('embeddedContent');
+        iframe.addEventListener('load', () => {
+            // Access the iframe document
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Find all links in the iframe
+            const links = iframeDocument.querySelectorAll('a');
+
+            // Make sure links open in the same iframe
+            links.forEach(link => {
+                link.setAttribute('target', '_self');
+            });
+        });
     </script>
 </body>
 </html>
-
